@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'screens/pantallaPeliculas.dart';
+import 'screens/pantallaPelicula.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +19,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const pantallaPeliculas(),
+      initialRoute: 'home',
+      routes: {
+        'home': (context) => const pantallaPeliculas(),
+        'pelicula': (context) => const PantallaPelicula(),
+        //'perfil': (context) => const pantallaPerfil(),
+      },
     );
   }
 }

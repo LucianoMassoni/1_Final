@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final/widgets/portadaPeliculaWidget.dart';
 import '../widgets/GenerosDropdownButton.dart';
 
 
@@ -44,175 +45,57 @@ class pantallaPeliculas extends StatelessWidget{
 
       ),
 
-      body: ListView(
-        prototypeItem: const Padding(padding: EdgeInsets.all(16.0)),
+      body: SafeArea(
+        child: GridView.count(
+        padding: const EdgeInsets.all(10),
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        crossAxisCount: 3,
+        children: <Widget> [
+          ListTile(
+              leading: PortadaPeliculaWidget(),
+              onTap: () => _gotoPantallaPelicula,
+          ),
         
-        children: [
-          Ink(
-            color: Colors.lime[50],
-            child: const ListTile(
-              title: Text("asdfasf"),
-              textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            ),
-          const ListTile(
-            title: Text("asdfasf"),
-            textColor: Color.fromARGB(255, 49, 255, 169)
-            )
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+          PortadaPeliculaWidget(),
+        
         ],
       ),
+      )
     );
   }
 }
+
+void _gotoPantallaPelicula(BuildContext context){
+  Navigator.of(context).push(MaterialPageRoute<void>(
+    builder: (context) => const pantallaPeliculas(),
+  )
+  );
+  
+  }
