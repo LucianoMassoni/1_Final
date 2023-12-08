@@ -8,7 +8,7 @@ class PantallaPelicula extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          
+          title: Text("Titulo de la pelicula"),
         ),
         body: Hero(
         tag: "peli",

@@ -17,6 +17,7 @@ class _GenerosDropdownButtonState extends State<GenerosDropdownButton> {
     return DropdownButton<String>(
       value: dropdownValue,
       icon: const Icon(Icons.keyboard_arrow_down_rounded),
+      focusColor: Colors.transparent,
       elevation: 16,
       // style: const TextStyle(color: Colors.deepPurple),
       borderRadius: BorderRadius.circular(20),

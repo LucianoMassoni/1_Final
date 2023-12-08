@@ -51,12 +51,7 @@ class pantallaPeliculas extends StatelessWidget{
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         crossAxisCount: 3,
-        children: <Widget> [
-          ListTile(
-              leading: PortadaPeliculaWidget(),
-              onTap: () => _gotoPantallaPelicula,
-          ),
-        
+        children: const <Widget> [
           PortadaPeliculaWidget(),
           PortadaPeliculaWidget(),
           PortadaPeliculaWidget(),
