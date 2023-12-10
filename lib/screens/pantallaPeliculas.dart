@@ -4,8 +4,8 @@ import '../widgets/GenerosDropdownButton.dart';
 
 
 
-class pantallaPeliculas extends StatelessWidget{
-  const pantallaPeliculas ({super.key});
+class PantallaPeliculas extends StatelessWidget{
+  const PantallaPeliculas ({super.key});
 
   @override
   Widget build(BuildContext context){
@@ -23,7 +23,7 @@ class pantallaPeliculas extends StatelessWidget{
           const Spacer(),
           IconButton(
             padding: const EdgeInsets.all(10),
-            icon: const Icon(Icons.home),
+            icon: const Icon(Icons.home),       // TODO - Este cambiarlo por un logo
             onPressed: (){
               print("home");
               
@@ -37,14 +37,16 @@ class pantallaPeliculas extends StatelessWidget{
             padding: const EdgeInsets.all(10),
             icon: const Icon(Icons.account_circle),
             onPressed: (){
-              print("oa");
+              Navigator.pushNamed(
+                context,
+                "perfil"
+              );
             }
           ),
           const Spacer(),
         ],
 
       ),
-
       body: SafeArea(
         child: GridView.count(
         padding: const EdgeInsets.all(10),
@@ -53,32 +55,32 @@ class pantallaPeliculas extends StatelessWidget{
         crossAxisCount: 3,
         children: const <Widget> [
           PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
-          PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
+          // PortadaPeliculaWidget(),
         
         ],
       ),
@@ -87,10 +89,10 @@ class pantallaPeliculas extends StatelessWidget{
   }
 }
 
-void _gotoPantallaPelicula(BuildContext context){
-  Navigator.of(context).push(MaterialPageRoute<void>(
-    builder: (context) => const pantallaPeliculas(),
-  )
-  );
+// void _gotoPantallaPelicula(BuildContext context){
+//   Navigator.of(context).push(MaterialPageRoute<void>(
+//     builder: (context) => const pantallaPeliculas(),
+//   )
+//   );
   
-  }
+//   }

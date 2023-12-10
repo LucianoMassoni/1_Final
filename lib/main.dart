@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/pantallaPeliculas.dart';
 import 'screens/pantallaPelicula.dart';
+import 'screens/pantallaPerfil.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,9 +22,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: 'home',
       routes: {
-        'home': (context) => const pantallaPeliculas(),
+        'home': (context) => const PantallaPeliculas(),
         'pelicula': (context) => const PantallaPelicula(),
-        //'perfil': (context) => const pantallaPerfil(),
+        'perfil': (context) => const PantallaPerfil(),
       },
     );
   }

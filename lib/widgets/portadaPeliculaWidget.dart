@@ -1,4 +1,3 @@
-import '../screens/pantallaPelicula.dart';
 import 'package:flutter/material.dart';
 
 class PortadaPeliculaWidget extends StatelessWidget {
@@ -8,11 +7,9 @@ class PortadaPeliculaWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) =>  const PantallaPelicula()
-            )
+          'pelicula'
         );
       },
       child: const Hero(
