@@ -2,18 +2,30 @@ import 'package:flutter/material.dart';
 
 List<String> generos = <String> ["-","Terror", "Drama", "Accion"];
 
+
 class GenerosDropdownButton extends StatefulWidget {
-  const GenerosDropdownButton({super.key});
+  final Function(String) onGeneroChanged;
+  const GenerosDropdownButton({required this.onGeneroChanged});
 
   @override
   State<GenerosDropdownButton> createState() => _GenerosDropdownButtonState();
 }
 
+
 class _GenerosDropdownButtonState extends State<GenerosDropdownButton> {
   String dropdownValue = generos.first;
 
+  void _handleGeneroChanged(String newGenero) {
+  setState(() {
+    dropdownValue = newGenero;
+  });
+
+  widget.onGeneroChanged(dropdownValue);
+  }
+
   @override
   Widget build(BuildContext context) {
+    
     return DropdownButton<String>(
       value: dropdownValue,
       icon: const Icon(Icons.keyboard_arrow_down_rounded),
@@ -27,18 +39,15 @@ class _GenerosDropdownButtonState extends State<GenerosDropdownButton> {
         color: Colors.deepPurpleAccent,
       ),
       onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          dropdownValue = value!;
-          //TODO - Aca poner la llamada a la api??
-        });
+        _handleGeneroChanged(value!);
       },
       items: generos.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
         );
-      }).toList(),
-    );
+      }).toList()
+      );
+      }
   }
-}
+
