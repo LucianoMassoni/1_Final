@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-List<String> generos = <String> ["-","Terror", "Drama", "Accion"];
+List<String> generos = <String> ["-","Acción", "Aventura", "Animación", "Comedia", "Crimen", "Documental", "Suspense", "Terror","Ciencia ficción", "Suspense"];
 
 
 class GenerosDropdownButton extends StatefulWidget {

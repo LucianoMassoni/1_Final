@@ -21,16 +21,6 @@ class PortadaPeliculaWidget extends StatelessWidget {
       },
       child: Hero(
           tag: 'peli$id',
-          // child:Image.network(
-          //   imageUrl,
-          //   loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-          //     if (loadingProgress == null) {
-          //       return child;
-          //     } else {
-          //       return  const Image(image: AssetImage('../assets/loading_poster.gif'));
-          //     }
-          //   },
-          // ),
           child: FadeInImage(
               image: NetworkImage(imageUrl),
               placeholder: Image.asset("assets/loading_poster.gif").image)),

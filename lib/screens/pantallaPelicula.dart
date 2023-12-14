@@ -26,7 +26,8 @@ class PantallaPelicula extends StatelessWidget {
           } else {
             // Obtiene la información de la película.
             final InfoPelicula infoPelicula = snapshot.data!;
-            return Scaffold(
+            return 
+            Scaffold(
               appBar: AppBar(
                 leading: IconButton(
                   icon:
@@ -35,19 +36,79 @@ class PantallaPelicula extends StatelessWidget {
                 ),
                 title: Text(infoPelicula.title ?? "Título de la película"),
               ),
-              body: ListView(
+              body:
+              
+              Container(
+                color: Color.fromARGB(255, 80, 80, 80),
+                child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  Hero(
-                    tag: "peli${infoPelicula.id.toString()}",
-                    child: FadeInImage(
-                      placeholder: AssetImage('../assets/loading_poster.gif'),
-                      image: NetworkImage(
-                          'https://image.tmdb.org/t/p/w500${infoPelicula.posterPath ?? ""}'),
+                  Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage('https://image.tmdb.org/t/p/w500${infoPelicula.backdropPath?? ""}'),
+                        opacity: 0.5,
+                        fit: BoxFit.fitWidth,
+                        alignment: Alignment.topCenter,
+                      ),
                     ),
+                    padding: EdgeInsets.fromLTRB(20, 160, 0, 0),
+                    child: ListView(
+                      children: [
+                        Row(
+                          children: [
+                            IconButton(
+                              icon:
+                                  const Icon(Icons.arrow_back_ios_new, color: Colors.black),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                            Text(infoPelicula.title ?? "Título de la película"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Hero(
+                              tag: "peli${infoPelicula.id.toString()}",
+                              child: FadeInImage(
+                                placeholder: const AssetImage('../assets/loading_poster.gif'),
+                                image: NetworkImage('https://image.tmdb.org/t/p/w500${infoPelicula.posterPath ?? ""}'),
+                                width: 100,
+                                height: 250,
+                                alignment: Alignment.centerLeft,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    )
                   ),
+                  Text.rich(
+                    TextSpan(
+                      style: const TextStyle(color: Colors.white ),
+                      children:[
+                        const TextSpan(
+                          text: "Resumen\n", 
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold, 
+                            fontSize: 20
+                          ),
+                        ),
+                        TextSpan(text: infoPelicula.overview?? '', ),
+                      ]
+                    )
+                          
+                  ),
+                        
+                  Container(
+                    child: Text(infoPelicula.overview?? ''), //TODO - generos
+                  ),
+                  Container(
+                    child: Text(''), //TODO - votes - aca en vez de poner eso puedo hacer un widget cicular de los votos.
+                  ),
+                  
                 ],
-              ),
+              )
+              )
             );
           }
         });
