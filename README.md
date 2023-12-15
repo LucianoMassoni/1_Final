@@ -8,24 +8,28 @@ App movile para andriod de películas.
 <summary>1- splashScreen</summary>
 <br>
 Pantalla de inicio de la app.
+<hr>
 </details>
 
 <details>
 <summary>2- pantallaPeliculas</summary>
 <br>
 En esta pantalla se muestran las portadas de las peliculas y se puede filtrar por géneros.
+<hr>
 </details>
 
 <details>
 <summary>3- pantallaPelicula</summary>
 <br>
 En esta pantalla se muestra la información de la pelicula.
+<hr>
 </details>
 
 <details>
 <summary>4- pantallaPerfil</summary>
 <br>
 En esta pantalla se muestra la información del usuario.
+<hr>
 </details>
 
 ## Consumo API
