@@ -1,16 +1,38 @@
 # flutter_final
 
-A new Flutter project.
+App movile para andriod de películas.
 
-## Getting Started
+### pantallas
 
-This project is a starting point for a Flutter application.
+<details>
+<summary>1- splashScreen</summary>
+<br>
+Pantalla de inicio de la app.
+</details>
 
-A few resources to get you started if this is your first Flutter project:
+<details>
+<summary>2- pantallaPeliculas</summary>
+<br>
+En esta pantalla se muestran las portadas de las peliculas y se puede filtrar por géneros.
+</details>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<details>
+<summary>3- pantallaPelicula</summary>
+<br>
+En esta pantalla se muestra la información de la pelicula.
+</details>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<details>
+<summary>4- pantallaPerfil</summary>
+<br>
+En esta pantalla se muestra la información del usuario.
+</details>
+
+## Consumo API
+
+La app consume la api [proyecto-labo4](https://github.com/LucianoMassoni/proyecto_labo4) que a su vez utiliza la api de [TMDB](https://developer.themoviedb.org/docs)
+
+
+## Version Andriod
+
+La app está testeada en un __pixel 3a API 34.__
