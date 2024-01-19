@@ -59,7 +59,7 @@ class _PantallaPeliculasState extends State<PantallaPeliculas> {
             padding: const EdgeInsets.all(10),
             icon: const Icon(Icons.home),       // TODO - Este cambiarlo por un logo
             onPressed: (){
-              _actualizarPeliculas("-");        //TODO - resetear el genero y mostrar todas las peliculas.
+              _actualizarPeliculas("-");
             }
           ),
           const Spacer(),

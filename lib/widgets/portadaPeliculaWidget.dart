@@ -23,7 +23,7 @@ class PortadaPeliculaWidget extends StatelessWidget {
           tag: 'peli$id',
           child: FadeInImage(
               image: NetworkImage(imageUrl),
-              placeholder: Image.asset("assets/loading_poster.gif").image)),
+              placeholder: Image.asset("assets/loading_poster_blue.gif").image)),
     );
   }
 }

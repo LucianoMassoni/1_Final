@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: 'home',
       routes: {
-        'home': (context) =>  SplashScreen(),
+        'home': (context) =>  const SplashScreen(),
         'peliculas': (context) => const PantallaPeliculas(),
         'pelicula': (context) => const PantallaPelicula(),
         'perfil': (context) => const PantallaPerfil(),

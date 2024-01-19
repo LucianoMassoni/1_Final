@@ -6,7 +6,7 @@ class PeliculasService {
   Future<InfoPeliculas> obtenerPeliculasPorGenero(
       String genero, int pagina) async {
     String myurl = 'localhost:5000';
-    //String myurl = '10.0.2.2:5000';
+    //String myurl = '10.0.2.1:5000';
     Uri url;
     if (genero == '-') {
       url = Uri.http(myurl, '/peliculas/$pagina');

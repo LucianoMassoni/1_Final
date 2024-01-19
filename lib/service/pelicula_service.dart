@@ -8,7 +8,7 @@ class PeliculaService {
   Future<InfoPelicula> obtenerInfoPelicula(int _id) async {
     String id = _id.toString();
     String myurl = 'localhost:5000';
-    //String myurl = '10.0.2.2:5000'; 
+    //String myurl = '10.0.2.1:5000'; 
     Uri url;
       url = Uri.http(myurl, '/pelicula/$id');
       print(url);

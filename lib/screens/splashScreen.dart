@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final/screens/pantallaPeliculas.dart';
 
 
 
@@ -15,7 +16,8 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     
     Future.delayed(const Duration(seconds: 3), (){
-      Navigator.pushNamed(context, "peliculas");
+      //Navigator.pushNamed(context, "peliculas");
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PantallaPeliculas()));
     }
     );
   }

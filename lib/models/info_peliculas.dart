@@ -2,6 +2,8 @@
 //
 //     final infoPeliculas = infoPeliculasFromJson(jsonString);
 
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 InfoPeliculas infoPeliculasFromJson(String str) => InfoPeliculas.fromJson(json.decode(str));

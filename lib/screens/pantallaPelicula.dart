@@ -1,8 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import '../models/info_pelicula.dart';
 import '../service/pelicula_service.dart';
+
+
 
 class PantallaPelicula extends StatelessWidget {
   final int? idPelicula;
@@ -14,11 +14,14 @@ class PantallaPelicula extends StatelessWidget {
     const String imgUrl = 'https://image.tmdb.org/t/p/w500';
     final PeliculaService peliculaService = PeliculaService();
 
+    double screenWidth = MediaQuery.of(context).size.width;
+    //double screenHeight = MediaQuery.of(context).size.height;
+
     return FutureBuilder<InfoPelicula>(
       future: peliculaService.obtenerInfoPelicula(idPelicula!),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Image.asset("assets/loading_poster.gif");
+          return Image.asset("assets/loading_poster_blue.gif");
         } else if (snapshot.hasError) {
           // Muestra un mensaje de error si hay un problema.
           return Text('Error al obtener la película: ${snapshot.error}');
@@ -29,174 +32,182 @@ class PantallaPelicula extends StatelessWidget {
           // Obtiene la información de la película.
           final InfoPelicula infoPelicula = snapshot.data!;
           return Scaffold(
-            body: Container(
-              decoration:const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.black, Color.fromARGB(255, 4, 9, 37)],
-                ),
-              ),
-            child : Stack(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.black, Color.fromARGB(0, 4, 9, 37)],
-                    ),
+            body: SingleChildScrollView(
+              child: Container(
+                width: screenWidth,
+                decoration:const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color.fromARGB(255, 0, 0, 0), Color.fromARGB(255, 4, 9, 37)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
                 ),
-                ShaderMask(
-                  shaderCallback: (Rect bounds) {
-                    return const LinearGradient(
-                      colors: [Color.fromARGB(255, 0, 0, 0), Color.fromARGB(0, 0, 0, 0)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ).createShader(bounds);
-                  },
-                  blendMode: BlendMode.dstIn,
-                  child: Image.network(
-                    '$imgUrl${infoPelicula.backdropPath}',
-                    //fit: BoxFit.cover,
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.arrow_back_ios_new, color: Color.fromARGB(255, 255, 255, 255)),
-                            onPressed: () => Navigator.of(context).pop(),
-                            alignment: Alignment.topLeft,
-                          ),
-                          Text(
-                            '${infoPelicula.title}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const Icon(Icons.abc, color: Colors.transparent), //un icono transparente para que el spaceBetween quede centrado
-                        ],
+                child : Stack(
+                  children: [
+                    Container(                          
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.black, Color.fromARGB(0, 4, 9, 37)],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
                       ),
-                      Row(
+                    ),
+                    ShaderMask(
+                      shaderCallback: (Rect bounds) {
+                        return const LinearGradient(
+                          colors: [Color.fromARGB(255, 0, 0, 0), Color.fromARGB(0, 0, 0, 0)],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ).createShader(bounds);
+                      },
+                      blendMode: BlendMode.dstIn,
+                      child: Image.network(
+                        '$imgUrl${infoPelicula.backdropPath}',
+                        //fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                      child: Column(
                         children: [
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(10, 25, 0, 0),
-                            child: Hero(
-                              tag: "peli${infoPelicula.id.toString()}",
-                              child: FadeInImage(
-                                placeholder: const AssetImage('assets/loading_poster.gif'),
-                                image: NetworkImage('$imgUrl${infoPelicula.posterPath}'),
-                                width: 200,
-                                height: 500,
-                                alignment: Alignment.centerLeft,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.arrow_back_ios_new, color: Color.fromARGB(255, 255, 255, 255)),
+                                onPressed: () => Navigator.of(context).pop(),
+                                alignment: Alignment.topLeft,
                               ),
-                            ),
+                              Flexible(
+                                child: Text(
+                                '${infoPelicula.title}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                softWrap: true,
+                                textAlign: TextAlign.center,
+                              ),
+                              ),
+                              const Icon(Icons.abc, color: Colors.transparent), //un icono transparente para que el spaceBetween quede centrado
+                            ],
                           ),
-                          Container(
-                              margin: const EdgeInsets.fromLTRB( 20, 0, 0, 0),
-                              child: Column(
-                                crossAxisAlignment:CrossAxisAlignment.start,
-                                children: [
-                                  Text.rich(
-                                    TextSpan(
-                                      style: const TextStyle(color: Colors.white),
-                                      children: [
-                                        const TextSpan(
-                                        text: "año: ",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          //fontSize: 20,
-                                        ),
-                                      ),
-                                      TextSpan(text:'${infoPelicula.releaseDate?.year}')
-                                      ]
-                                    )
+                          Row(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(10, 25, 0, 0),
+                                child: Hero(
+                                  tag: "peli${infoPelicula.id.toString()}",
+                                  child: FadeInImage(
+                                    placeholder: const AssetImage('assets/loading_poster_blue.gif'),
+                                    image: NetworkImage('$imgUrl${infoPelicula.posterPath}'),
+                                    width: 200,
+                                    height: 500,
+                                    alignment: Alignment.centerLeft,
                                   ),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Text.rich(
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB( 20, 0, 0, 0),
+                                child: Column(
+                                  crossAxisAlignment:CrossAxisAlignment.start,
+                                  children: [
+                                    Text.rich(
                                       TextSpan(
-                                        style: TextStyle(color: Colors.white),
+                                        style: const TextStyle(color: Colors.white),
                                         children: [
-                                          TextSpan(
-                                            text: "Géneros: ",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              //fontSize: 20,
-                                            ),
+                                          const TextSpan(
+                                          text: "año: ",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            //fontSize: 20,
                                           ),
+                                        ),
+                                        TextSpan(text:'${infoPelicula.releaseDate?.year}')
                                         ]
                                       )
                                     ),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: infoPelicula.genres!.map((genre) {
-                                        return Text(genre.name ?? '', style: const TextStyle(color: Colors.white),);
-                                      }).toList(),
-                                    ),
-                                    ],
-                                  ),
-                                  Text.rich(
-                                    TextSpan(
-                                      style: const TextStyle(color: Colors.white),
                                       children: [
-                                        const TextSpan(
-                                        text: "Rate: ",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          //fontSize: 20,
-                                        ),
+                                        const Text.rich(
+                                        TextSpan(
+                                          style: TextStyle(color: Colors.white),
+                                          children: [
+                                            TextSpan(
+                                              text: "Géneros: ",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                //fontSize: 20,
+                                              ),
+                                            ),
+                                          ]
+                                        )
                                       ),
-                                      TextSpan(text:'${infoPelicula.voteAverage}')
-                                      ]
-                                    )
-                                  ),
-                                ],
-                              ),
-                            ), 
-                           
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          for (var genre in infoPelicula.genres!)
+                                            Container(
+                                              //constraints: const BoxConstraints(maxWidth: 90), // hardcodeado el width para la pantalla :/ 
+                                              child: Text(
+                                                genre.name ?? '',
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(color: Colors.white),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Text.rich(
+                                      TextSpan(
+                                        style: const TextStyle(color: Colors.white),
+                                        children: [
+                                          const TextSpan(
+                                            text: "Rate: ",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              //fontSize: 20,
+                                            ),
+                                          ),
+                                          TextSpan(text:'${infoPelicula.voteAverage}')
+                                        ]
+                                      )
+                                    ),
+                                  ],
+                                ),
+                              ),   
+                            ],
+                          ),  
                         ],
-                      ),  
-                    ],
-                  ),      
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 500, 0, 0),
-                  child: Text.rich(
-                  TextSpan(
-                    style: const TextStyle(color: Colors.white),
-                    children: [
-                      const TextSpan(
-                        text: "Resumen\n",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                      ),      
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(20, 550, 0, 0),
+                      child: Text.rich(
+                        TextSpan(
+                          style: const TextStyle(color: Colors.white),
+                          children: [
+                            const TextSpan(
+                              text: "Resumen\n ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                            TextSpan(text: '${infoPelicula.overview}' )
+                          ],
                         ),
                       ),
-                      //TextSpan(text: infoPelicula.overview ?? ''),
-                      TextSpan(text: ''' Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
-¿Por qué lo usamos?
-
-Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a través de los años, algunas veces por accidente, otras veces a propósito (por ejemplo insertándole humor y cosas por el estilo).
-
-¿De dónde viene?
-
-Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, "consecteur", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de "de Finnibus Bonorum et Malorum" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45 antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el Renacimiento. La primera linea del Lorem Ipsum, "Lorem ipsum dolor sit amet..", viene de una linea en la sección 1.10.32
-
-El trozo de texto estándar de Lorem Ipsum usado desde el año 1500 es reproducido debajo para aquellos interesados. Las secciones 1.10.32 y 1.10.33 de "de Finibus Bonorum et Malorum" por Cicero son también reproducidas en su forma original exacta, acompañadas por versiones en Inglés de la traducción realizada en 1914 por H. Rackham.
- ''')
-                    ],
-                  ),
+                    )
+                    //TODO - Un scrollview para los actores?  
+                  ],
                 ),
-                )
-              ],
-            ),
-          )
+              )
+            )
           );
         }
       }
