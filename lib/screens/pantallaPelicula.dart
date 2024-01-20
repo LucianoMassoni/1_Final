@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final/service/peliculas_relacionadas_service.dart';
+import 'package:flutter_final/widgets/portadaPeliculaWidget.dart';
 import '../models/info_pelicula.dart';
+import '../models/info_peliculas_relacionadas.dart';
 import '../service/pelicula_service.dart';
 
 
@@ -13,6 +16,10 @@ class PantallaPelicula extends StatelessWidget {
   Widget build(BuildContext context) {
     const String imgUrl = 'https://image.tmdb.org/t/p/w500';
     final PeliculaService peliculaService = PeliculaService();
+    
+
+    //final PeliculasRelacionadasService _peliculasRelacionadasService = PeliculasRelacionadasService();
+
 
     double screenWidth = MediaQuery.of(context).size.width;
     //double screenHeight = MediaQuery.of(context).size.height;
@@ -31,6 +38,7 @@ class PantallaPelicula extends StatelessWidget {
         } else {
           // Obtiene la información de la película.
           final InfoPelicula infoPelicula = snapshot.data!;
+          
           return Scaffold(
             body: SingleChildScrollView(
               child: Container(
@@ -186,7 +194,8 @@ class PantallaPelicula extends StatelessWidget {
                       ),      
                     ),
                     Container(
-                      padding: const EdgeInsets.fromLTRB(20, 550, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(20, 550, 0, 80),
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 200),
                       child: Text.rich(
                         TextSpan(
                           style: const TextStyle(color: Colors.white),
@@ -202,8 +211,64 @@ class PantallaPelicula extends StatelessWidget {
                           ],
                         ),
                       ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 800, 0, 0),
+                      child:const Text.rich(
+                        TextSpan(
+                          style:  TextStyle(color: Colors.white),
+                          children:[
+                            TextSpan(
+                              text: "Peliculas relacionadas\n ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              )
+                            )
+                          ]
+                        )
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(20, 800, 0, 0),
+                      height: 150,
+                      width: 500,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(0, 0, 0, 0)
+                      ),
+                      child: GestureDetector(
+                        child: FutureBuilder<List<Result>>(
+                          future: PeliculasRelacionadasService().obtenerInfoPeliculas(idPelicula!),
+                          builder: (context, snapshotPeliculasRelacionadas) {
+                            if (snapshotPeliculasRelacionadas.hasError) {
+                              return Text('Error al obtener películas relacionadas: ${snapshotPeliculasRelacionadas.error}');
+                            } else {
+                              List<Result> peliculasRelacionadas = snapshotPeliculasRelacionadas.data ?? [];
+                              Image.asset("assets/loading_poster_blue.gif");
+                              return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: peliculasRelacionadas.length,
+                                itemBuilder: (context, index) {
+                                  return PortadaPeliculaWidget(
+                                    id: peliculasRelacionadas[index].id?? -0, 
+                                    imageUrl: peliculasRelacionadas[index].posterPath != null
+                                      ? 'https://image.tmdb.org/t/p/w500${peliculasRelacionadas[index].posterPath}'
+                                      : 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',  
+                                  );
+                                },
+                              );
+                            }
+                          },
+                        ),
+                        onTap: () async {
+                          Navigator.pushNamed(
+                            context,
+                            'pelicula',
+                            arguments: idPelicula,
+                          );
+                        },  
+                      ),
                     )
-                    //TODO - Un scrollview para los actores?  
                   ],
                 ),
               )

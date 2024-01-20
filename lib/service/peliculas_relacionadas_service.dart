@@ -1,17 +1,15 @@
 import 'dart:convert';
-import '../models/info_pelicula.dart';
+import '../models/info_peliculas_relacionadas.dart';
 import 'package:http/http.dart' as http;
 
-
-class PeliculaService {
-  
-  Future<InfoPelicula> obtenerInfoPelicula(int _id) async {
+class PeliculasRelacionadasService{
+  Future<List<Result>> obtenerInfoPeliculas(int _id) async {
     String id = _id.toString();
     //String myurl = 'localhost:5000';
     //String myurl = '10.0.2.1:5000'; 
     String myurl = '192.168.0.151:5000';
     Uri url;
-      url = Uri.http(myurl, '/pelicula/$id');
+      url = Uri.http(myurl, '/pelicula/$id/relacionadas');
       print(url);
 
     try {
@@ -23,8 +21,8 @@ class PeliculaService {
         print(response.body);
 
       // Mapea la lista de JSON a instancias de la clase Pelicula.
-      InfoPelicula infoPelicula = InfoPelicula.fromJson(jsonDecode(response.body));
-      return infoPelicula;
+      InfoPeliculasRelacionadas infoPeliculasRelacionadas = InfoPeliculasRelacionadas.fromJson(jsonDecode(response.body));
+      return infoPeliculasRelacionadas.results?? [];
       } else {
         throw Exception('Error al obtener películas: ${response.statusCode}');
       }
@@ -35,4 +33,5 @@ class PeliculaService {
       throw Exception('Error al obtener películas: $e');
     }
   }
+
 }

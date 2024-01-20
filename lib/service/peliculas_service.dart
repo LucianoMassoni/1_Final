@@ -5,8 +5,9 @@ import 'package:http/http.dart' as http;
 class PeliculasService {
   Future<InfoPeliculas> obtenerPeliculasPorGenero(
       String genero, int pagina) async {
-    String myurl = 'localhost:5000';
+    //String myurl = 'localhost:5000';
     //String myurl = '10.0.2.1:5000';
+    String myurl = '192.168.0.151:5000';
     Uri url;
     if (genero == '-') {
       url = Uri.http(myurl, '/peliculas/$pagina');

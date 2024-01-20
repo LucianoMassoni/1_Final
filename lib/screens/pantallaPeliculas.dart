@@ -17,28 +17,54 @@ class _PantallaPeliculasState extends State<PantallaPeliculas> {
   
   List<Result> peliculas = []; // Asume que tienes una lista de películas
 
+  final ScrollController _scrollController = ScrollController();
+  int _paginaActual = 1; 
+  String _generoActual = "-";
+  final int _desplazamientoMax = 200; 
+
+
   @override
   void initState(){
     super.initState();
-    _actualizarPeliculas("-");
+    _actualizarPeliculas(_generoActual, _paginaActual);
+    _scrollController.addListener(_scrollListener);
   }
 
-  void _actualizarPeliculas(String genero) async {
-    try {
-      InfoPeliculas nuevasPeliculas = await _peliculasService.obtenerPeliculasPorGenero(genero, 1);
-      setState(() {
-        peliculas = nuevasPeliculas.results ?? [];
+  void _scrollListener() {
+    if (_scrollController.offset >= _scrollController.position.maxScrollExtent - _desplazamientoMax && !_scrollController.position.outOfRange) {
+      _cargarMasPeliculas();
+    }
+  }
+  
+  void _cargarMasPeliculas() async {
+  try {
+    _actualizarPeliculas(_generoActual, _paginaActual + 1);
+  } catch (error) {
+    print('Error al cargar más películas: $error');
+  }
+}
 
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+  
+
+  void _actualizarPeliculas(String genero, [int pag = 1]) async {
+    try {
+      InfoPeliculas nuevasPeliculas = await _peliculasService.obtenerPeliculasPorGenero(genero, pag);
+      setState(() {
+        peliculas.addAll(nuevasPeliculas.results ?? []);
+        _paginaActual = pag;
+        _generoActual = genero;
       });
     } catch (error) {
-      // Manejar errores, por ejemplo, mostrar un mensaje al usuario.
       print('Error al obtener películas: $error');
 
     }
   }
   
-
-  // TODO - fijarse de como hacer el un infinit scroll
   @override
   Widget build(BuildContext context){
     int? idPelicula;
@@ -54,14 +80,7 @@ class _PantallaPeliculasState extends State<PantallaPeliculas> {
         // centerTitle: true,
         actions: <Widget> [
           const Spacer(),
-          // TODO - en vez de un incon button mejor solo un logo.
-          IconButton(
-            padding: const EdgeInsets.all(10),
-            icon: const Icon(Icons.home),       // TODO - Este cambiarlo por un logo
-            onPressed: (){
-              _actualizarPeliculas("-");
-            }
-          ),
+          const Icon(Icons.abc, color: Color.fromARGB(0, 0, 0, 0),),
           const Spacer(),
           const Text("Genero:"),
           GenerosDropdownButton(onGeneroChanged: _actualizarPeliculas),
@@ -79,35 +98,52 @@ class _PantallaPeliculasState extends State<PantallaPeliculas> {
           const Spacer(),
         ],
       ),
-      body: GestureDetector(
-        child:SafeArea(
+      body: SafeArea(
+        child: NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification scrollInfo) {
+          if (scrollInfo is ScrollEndNotification) {
+            double currentScroll = scrollInfo.metrics.pixels;
+            double maxScroll = scrollInfo.metrics.maxScrollExtent;
+
+            // Cuando el usuario llega al 80% del final de la lista, carga más películas
+            double scrollThreshold = 0.8;
+
+            if (currentScroll / maxScroll > scrollThreshold) {
+              
+              _cargarMasPeliculas();
+            }
+          }
+          return false;
+        },
+        child:GestureDetector(
           child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            ),
+            padding: const EdgeInsets.all(10),
+            itemCount: peliculas.length,
+            itemBuilder: (context, index) {
+              idPelicula = peliculas[index].id?? null;
+              return PortadaPeliculaWidget(
+                id: peliculas[index].id?? -0, 
+                imageUrl: peliculas[index].posterPath != null
+                  ? 'https://image.tmdb.org/t/p/w500${peliculas[index].posterPath}'
+                  : 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg', 
+                  
+              );
+            },
           ),
-          padding: const EdgeInsets.all(10),
-          itemCount: peliculas.length,
-          itemBuilder: (context, index) {
-            idPelicula = peliculas[index].id?? null;
-            return PortadaPeliculaWidget(
-              id: peliculas[index].id?? -0, 
-              imageUrl: peliculas[index].posterPath != null
-                ? 'https://image.tmdb.org/t/p/w500${peliculas[index].posterPath}'
-                : 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg', 
-                
-            );
-          },
-          ),
-      ),
-        onTap: () async {
+          onTap: () async {
           Navigator.pushNamed(
             context,
             'pelicula',
             arguments: idPelicula,
           );
         },  
+        ),
+      ),
       )
     );
   }
