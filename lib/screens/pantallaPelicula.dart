@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_final/service/peliculas_relacionadas_service.dart';
+import 'package:flutter_final/widgets/RateWidget.dart';
 import 'package:flutter_final/widgets/portadaPeliculaWidget.dart';
 import '../models/info_pelicula.dart';
 import '../models/info_peliculas_relacionadas.dart';
@@ -50,170 +51,182 @@ class PantallaPelicula extends StatelessWidget {
                     end: Alignment.bottomCenter,
                   ),
                 ),
-                child : Stack(
-                  children: [
-                    Container(                          
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Colors.black, Color.fromARGB(0, 4, 9, 37)],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
+                child : Column(
+                  children:[
+                    Stack(
+                      children: [
+                      Container(                          
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.black, Color.fromARGB(0, 4, 9, 37)],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
                         ),
                       ),
-                    ),
-                    ShaderMask(
-                      shaderCallback: (Rect bounds) {
-                        return const LinearGradient(
-                          colors: [Color.fromARGB(255, 0, 0, 0), Color.fromARGB(0, 0, 0, 0)],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ).createShader(bounds);
-                      },
-                      blendMode: BlendMode.dstIn,
-                      child: Image.network(
-                        '$imgUrl${infoPelicula.backdropPath}',
-                        //fit: BoxFit.cover,
+                      ShaderMask(
+                        shaderCallback: (Rect bounds) {
+                          return const LinearGradient(
+                            colors: [Color.fromARGB(255, 0, 0, 0), Color.fromARGB(0, 0, 0, 0)],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ).createShader(bounds);
+                        },
+                        blendMode: BlendMode.dstIn,
+                        child: Image.network(
+                          '$imgUrl${infoPelicula.backdropPath}',
+                          //fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.arrow_back_ios_new, color: Color.fromARGB(255, 255, 255, 255)),
-                                onPressed: () => Navigator.of(context).pop(),
-                                alignment: Alignment.topLeft,
-                              ),
-                              Flexible(
-                                child: Text(
-                                '${infoPelicula.title}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.arrow_back_ios_new, color: Color.fromARGB(255, 255, 255, 255)),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  alignment: Alignment.topLeft,
                                 ),
-                                softWrap: true,
-                                textAlign: TextAlign.center,
-                              ),
-                              ),
-                              const Icon(Icons.abc, color: Colors.transparent), //un icono transparente para que el spaceBetween quede centrado
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(10, 25, 0, 0),
-                                child: Hero(
-                                  tag: "peli${infoPelicula.id.toString()}",
-                                  child: FadeInImage(
-                                    placeholder: const AssetImage('assets/loading_poster_blue.gif'),
-                                    image: NetworkImage('$imgUrl${infoPelicula.posterPath}'),
-                                    width: 200,
-                                    height: 500,
-                                    alignment: Alignment.centerLeft,
+                                Flexible(
+                                  child: Text(
+                                  '${infoPelicula.title}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  softWrap: true,
+                                  textAlign: TextAlign.center,
+                                ),
+                                ),
+                                const Icon(Icons.abc, color: Colors.transparent), //un icono transparente para que el spaceBetween quede centrado
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.fromLTRB(10, 25, 0, 0),
+                                  child: Hero(
+                                    tag: "peli${infoPelicula.id.toString()}",
+                                    child: FadeInImage(
+                                      placeholder: const AssetImage('assets/loading_poster_blue.gif'),
+                                      image: NetworkImage('$imgUrl${infoPelicula.posterPath}'),
+                                      width: 200,
+                                      height: 500,
+                                      alignment: Alignment.centerLeft,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.fromLTRB( 20, 0, 0, 0),
-                                child: Column(
-                                  crossAxisAlignment:CrossAxisAlignment.start,
-                                  children: [
-                                    Text.rich(
-                                      TextSpan(
-                                        style: const TextStyle(color: Colors.white),
-                                        children: [
-                                          const TextSpan(
-                                          text: "año: ",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            //fontSize: 20,
-                                          ),
-                                        ),
-                                        TextSpan(text:'${infoPelicula.releaseDate?.year}')
-                                        ]
-                                      )
-                                    ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Text.rich(
+                                Container(
+                                  margin: const EdgeInsets.fromLTRB( 20, 0, 0, 0),
+                                  child: Column(
+                                    crossAxisAlignment:CrossAxisAlignment.start,
+                                    children: [
+                                      Text.rich(
                                         TextSpan(
-                                          style: TextStyle(color: Colors.white),
+                                          style: const TextStyle(color: Colors.white),
                                           children: [
-                                            TextSpan(
-                                              text: "Géneros: ",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                //fontSize: 20,
-                                              ),
-                                            ),
-                                          ]
-                                        )
-                                      ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          for (var genre in infoPelicula.genres!)
-                                            Container(
-                                              //constraints: const BoxConstraints(maxWidth: 90), // hardcodeado el width para la pantalla :/ 
-                                              child: Text(
-                                                genre.name ?? '',
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(color: Colors.white),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Text.rich(
-                                      TextSpan(
-                                        style: const TextStyle(color: Colors.white),
-                                        children: [
-                                          const TextSpan(
-                                            text: "Rate: ",
+                                            const TextSpan(
+                                            text: "año: ",
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               //fontSize: 20,
                                             ),
                                           ),
-                                          TextSpan(text:'${infoPelicula.voteAverage}')
+                                          TextSpan(text:'${infoPelicula.releaseDate?.year}')
+                                          ]
+                                        )
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text.rich(
+                                            TextSpan(
+                                              style: TextStyle(color: Colors.white),
+                                              children: [
+                                                TextSpan(
+                                                  text: "Géneros: ",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    //fontSize: 20,
+                                                  ),
+                                                ),
+                                              ]
+                                            )
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              for (var genre in infoPelicula.genres!)
+                                                Text(
+                                                  genre.name ?? '',
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: const TextStyle(color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                        child: Row(
+                                        children: [
+                                          const Text.rich(
+                                            TextSpan(
+                                              style: TextStyle(color: Colors.white),
+                                              children: [
+                                                 TextSpan(
+                                                  text: "Rate: ",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    //fontSize: 20,
+                                                  ),
+                                                )
+                                              ]
+                                            )
+                                          ),
+                                          RateWidget(rate: infoPelicula.voteAverage ?? 0)
                                         ]
+                                      ),
                                       )
-                                    ),
-                                  ],
-                                ),
-                              ),   
-                            ],
-                          ),  
-                        ],
-                      ),      
-                    ),
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(20, 550, 0, 80),
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 200),
-                      child: Text.rich(
-                        TextSpan(
-                          style: const TextStyle(color: Colors.white),
-                          children: [
-                            const TextSpan(
-                              text: "Resumen\n ",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                              ),
-                            ),
-                            TextSpan(text: '${infoPelicula.overview}' )
+                                    ],
+                                  ),
+                                ),   
+                              ],
+                            ),  
                           ],
-                        ),
+                        ),      
+                      )
+                    ]
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text.rich(
+                      TextSpan(
+                        style: const TextStyle(color: Colors.white),
+                        children: [
+                          const TextSpan(
+                            text: "Resumen\n ",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          TextSpan(text: '${infoPelicula.overview}' )
+                        ],
                       ),
                     ),
+                  ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(20, 800, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),
+                      alignment: AlignmentDirectional.centerStart,
                       child:const Text.rich(
                         TextSpan(
                           style:  TextStyle(color: Colors.white),
@@ -230,7 +243,7 @@ class PantallaPelicula extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: const EdgeInsets.fromLTRB(20, 800, 0, 0),
+                      //margin: const EdgeInsets.fromLTRB(20, 800, 0, 0),
                       height: 150,
                       width: 500,
                       decoration: const BoxDecoration(
@@ -253,7 +266,7 @@ class PantallaPelicula extends StatelessWidget {
                                     id: peliculasRelacionadas[index].id?? -0, 
                                     imageUrl: peliculasRelacionadas[index].posterPath != null
                                       ? 'https://image.tmdb.org/t/p/w500${peliculasRelacionadas[index].posterPath}'
-                                      : 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',  
+                                      : 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png',  
                                   );
                                 },
                               );
@@ -269,11 +282,12 @@ class PantallaPelicula extends StatelessWidget {
                         },  
                       ),
                     )
-                  ],
+                    ]
+                    
+                )
                 ),
               )
-            )
-          );
+            );
         }
       }
     );
