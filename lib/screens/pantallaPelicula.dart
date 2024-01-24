@@ -19,11 +19,9 @@ class PantallaPelicula extends StatelessWidget {
     final PeliculaService peliculaService = PeliculaService();
     
 
-    //final PeliculasRelacionadasService _peliculasRelacionadasService = PeliculasRelacionadasService();
 
 
     double screenWidth = MediaQuery.of(context).size.width;
-    //double screenHeight = MediaQuery.of(context).size.height;
 
     return FutureBuilder<InfoPelicula>(
       future: peliculaService.obtenerInfoPelicula(idPelicula!),
@@ -79,7 +77,7 @@ class PantallaPelicula extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                        padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),
                         child: Column(
                           children: [
                             Row(
@@ -243,7 +241,7 @@ class PantallaPelicula extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      //margin: const EdgeInsets.fromLTRB(20, 800, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 20),
                       height: 150,
                       width: 500,
                       decoration: const BoxDecoration(
@@ -262,11 +260,14 @@ class PantallaPelicula extends StatelessWidget {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: peliculasRelacionadas.length,
                                 itemBuilder: (context, index) {
-                                  return PortadaPeliculaWidget(
-                                    id: peliculasRelacionadas[index].id?? -0, 
-                                    imageUrl: peliculasRelacionadas[index].posterPath != null
-                                      ? 'https://image.tmdb.org/t/p/w500${peliculasRelacionadas[index].posterPath}'
-                                      : 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png',  
+                                  return Container(
+                                    padding: EdgeInsets.only(right: 10),
+                                    child: PortadaPeliculaWidget(
+                                      id: peliculasRelacionadas[index].id?? -0, 
+                                      imageUrl: peliculasRelacionadas[index].posterPath != null
+                                        ? 'https://image.tmdb.org/t/p/w500${peliculasRelacionadas[index].posterPath}'
+                                        : 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png',  
+                                    ),
                                   );
                                 },
                               );

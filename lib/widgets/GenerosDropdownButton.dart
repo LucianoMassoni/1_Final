@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final/themes/default_theme.dart';
 
 List<String> generos = <String> ["-","Acción", "Aventura", "Animación", "Comedia", "Crimen", "Documental", "Suspenso", "Terror","Ciencia ficción"];
 
@@ -30,13 +31,15 @@ class _GenerosDropdownButtonState extends State<GenerosDropdownButton> {
       value: dropdownValue,
       icon: const Icon(Icons.keyboard_arrow_down_rounded),
       focusColor: Colors.transparent,
+      dropdownColor: AppThemes.darkTheme().primaryColor,
+      iconEnabledColor: AppThemes.darkTheme().indicatorColor,
       elevation: 16,
-      // style: const TextStyle(color: Colors.deepPurple),
+      style: AppThemes.simpleTextColor(),
       borderRadius: BorderRadius.circular(20),
       padding: const EdgeInsets.all(10),
       underline: Container(
         height: 2,
-        color: Colors.deepPurpleAccent,
+        color: Color.fromARGB(0, 255, 255, 255),
       ),
       onChanged: (String? value) {
         _handleGeneroChanged(value!);

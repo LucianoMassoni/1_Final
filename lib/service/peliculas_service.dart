@@ -3,11 +3,11 @@ import '../models/info_peliculas.dart';
 import 'package:http/http.dart' as http;
 
 class PeliculasService {
-  Future<InfoPeliculas> obtenerPeliculasPorGenero(
-      String genero, int pagina) async {
-    //String myurl = 'localhost:5000';
-    //String myurl = '10.0.2.1:5000';
-    String myurl = '192.168.0.151:5000';
+  Future<InfoPeliculas> obtenerPeliculasPorGenero(String genero, int pagina) async {
+    String myurl = 'proyecto-labo4.onrender.com';      //servidor render
+    //String myurl = 'localhost:5000';      //navegador
+    //String myurl = '10.0.2.1:5000';       //cel virtual
+    //String myurl = '192.168.0.151:5000';    //cel fisico
     Uri url;
     if (genero == '-') {
       url = Uri.http(myurl, '/peliculas/$pagina');
@@ -22,9 +22,7 @@ class PeliculasService {
 
       if (response.statusCode == 200) {
         final dynamic jsonRespuesta = json.decode(response.body);
-        print(jsonRespuesta);
         InfoPeliculas infoPeliculas = InfoPeliculas.fromJson(jsonRespuesta);
-        print(infoPeliculas);
         return infoPeliculas;
       } else {
         throw Exception('Error al obtener películas : ${response.statusCode}');

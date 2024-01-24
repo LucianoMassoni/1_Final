@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final/themes/default_theme.dart';
 import 'package:flutter_final/widgets/portadaPeliculaWidget.dart';
 import '../widgets/GenerosDropdownButton.dart';
 import '../models/info_peliculas.dart';
@@ -54,6 +55,9 @@ class _PantallaPeliculasState extends State<PantallaPeliculas> {
   void _actualizarPeliculas(String genero, [int pag = 1]) async {
     try {
       InfoPeliculas nuevasPeliculas = await _peliculasService.obtenerPeliculasPorGenero(genero, pag);
+      if (genero != _generoActual) {
+        peliculas.clear();
+      }
       setState(() {
         peliculas.addAll(nuevasPeliculas.results ?? []);
         _paginaActual = pag;
@@ -69,25 +73,25 @@ class _PantallaPeliculasState extends State<PantallaPeliculas> {
   Widget build(BuildContext context){
     int? idPelicula;
     return Scaffold(
-      
       extendBodyBehindAppBar: true,
       backgroundColor: const Color.fromARGB(228, 255, 255, 255),
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         automaticallyImplyLeading: false,
-        // title: const Text("tasdfasdfasdf"),
-        // backgroundColor: Color.fromARGB(228, 255, 255, 255),
+        backgroundColor: AppThemes.darkTheme().primaryColor,
         // elevation: 0,
         // centerTitle: true,
         actions: <Widget> [
           const Spacer(),
           const Icon(Icons.abc, color: Color.fromARGB(0, 0, 0, 0),),
           const Spacer(),
-          const Text("Genero:"),
+          Text("Genero:", style: AppThemes.TextColor()),
           GenerosDropdownButton(onGeneroChanged: _actualizarPeliculas),
           const Spacer(),
           IconButton(
             padding: const EdgeInsets.all(10),
             icon: const Icon(Icons.account_circle),
+            color: AppThemes.darkTheme().indicatorColor,
             onPressed: (){
               Navigator.pushNamed(
                 context,
@@ -98,52 +102,55 @@ class _PantallaPeliculasState extends State<PantallaPeliculas> {
           const Spacer(),
         ],
       ),
-      body: SafeArea(
-        child: NotificationListener<ScrollNotification>(
-        onNotification: (ScrollNotification scrollInfo) {
-          if (scrollInfo is ScrollEndNotification) {
-            double currentScroll = scrollInfo.metrics.pixels;
-            double maxScroll = scrollInfo.metrics.maxScrollExtent;
+      body: Container(
+        decoration: AppThemes.bodyBackgroundDecoration(),
+        child: SafeArea(
+          child: NotificationListener<ScrollNotification>(
+          onNotification: (ScrollNotification scrollInfo) {
+            if (scrollInfo is ScrollEndNotification) {
+              double currentScroll = scrollInfo.metrics.pixels;
+              double maxScroll = scrollInfo.metrics.maxScrollExtent;
 
-            // Cuando el usuario llega al 80% del final de la lista, carga más películas
-            double scrollThreshold = 0.8;
+              // Cuando el usuario llega al 80% del final de la lista, carga más películas
+              double scrollThreshold = 0.8;
 
-            if (currentScroll / maxScroll > scrollThreshold) {
-              
-              _cargarMasPeliculas();
+              if (currentScroll / maxScroll > scrollThreshold) {
+                
+                _cargarMasPeliculas();
+              }
             }
-          }
-          return false;
-        },
-        child:GestureDetector(
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+            return false;
+          },
+          child:GestureDetector(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              ),
+              padding: const EdgeInsets.all(10),
+              itemCount: peliculas.length,
+              itemBuilder: (context, index) {
+                idPelicula = peliculas[index].id?? null;
+                return PortadaPeliculaWidget(
+                  id: peliculas[index].id?? -0, 
+                  imageUrl: peliculas[index].posterPath != null
+                    ? 'https://image.tmdb.org/t/p/w500${peliculas[index].posterPath}'
+                    : 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg', 
+                    
+                );
+              },
             ),
-            padding: const EdgeInsets.all(10),
-            itemCount: peliculas.length,
-            itemBuilder: (context, index) {
-              idPelicula = peliculas[index].id?? null;
-              return PortadaPeliculaWidget(
-                id: peliculas[index].id?? -0, 
-                imageUrl: peliculas[index].posterPath != null
-                  ? 'https://image.tmdb.org/t/p/w500${peliculas[index].posterPath}'
-                  : 'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg', 
-                  
-              );
-            },
+            onTap: () async {
+            Navigator.pushNamed(
+              context,
+              'pelicula',
+              arguments: idPelicula,
+            );
+          },  
           ),
-          onTap: () async {
-          Navigator.pushNamed(
-            context,
-            'pelicula',
-            arguments: idPelicula,
-          );
-        },  
         ),
-      ),
+        ),
       )
     );
   }
