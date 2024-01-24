@@ -21,14 +21,14 @@ En esta pantalla se muestran las portadas de las peliculas y se puede filtrar po
 <details>
 <summary>3- pantallaPelicula</summary>
 <br>
-En esta pantalla se muestra la información de la pelicula.
+En esta pantalla se muestra la información de la pelicula y la portada de peliculas relacionadas en la que se puede acceder.
 <hr>
 </details>
 
 <details>
 <summary>4- pantallaPerfil</summary>
 <br>
-En esta pantalla se muestra la información del usuario.
+Pantalla de tipo login. -No funcional-
 <hr>
 </details>
 
@@ -39,4 +39,4 @@ La app consume la api [proyecto-labo4](https://github.com/LucianoMassoni/proyect
 
 ## Version Andriod
 
-La app está testeada en un __pixel 3a API 34.__
+La app está testeada en un __pixel 3a API 34__ y en un __xiaomi redmi 7__.
