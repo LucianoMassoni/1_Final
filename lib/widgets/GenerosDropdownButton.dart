@@ -6,7 +6,7 @@ List<String> generos = <String> ["-","Acción", "Aventura", "Animación", "Comed
 
 class GenerosDropdownButton extends StatefulWidget {
   final Function(String) onGeneroChanged;
-  const GenerosDropdownButton({required this.onGeneroChanged});
+  const GenerosDropdownButton({super.key, required this.onGeneroChanged});
 
   @override
   State<GenerosDropdownButton> createState() => _GenerosDropdownButtonState();
@@ -39,7 +39,7 @@ class _GenerosDropdownButtonState extends State<GenerosDropdownButton> {
       padding: const EdgeInsets.all(10),
       underline: Container(
         height: 2,
-        color: Color.fromARGB(0, 255, 255, 255),
+        color: const Color.fromARGB(0, 255, 255, 255),
       ),
       onChanged: (String? value) {
         _handleGeneroChanged(value!);

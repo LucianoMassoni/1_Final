@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_final/screens/splashScreen.dart';
+import 'package:flutter_final/screens/barrel.dart';
 import 'package:flutter_final/themes/default_theme.dart';
-import 'screens/pantallaPeliculas.dart';
-import 'screens/pantallaPelicula.dart';
-import 'screens/pantallaPerfil.dart';
+
 
 void main() {
   runApp(const MyApp());

@@ -14,13 +14,9 @@ class PeliculasRelacionadasService{
       print(url);
 
     try {
-      print(url);
       final response = await http.get(url);
-      print("Entre en el try");
-      if (response.statusCode == 200) {
-        print(response.statusCode);
-        print(response.body);
 
+      if (response.statusCode == 200) {
       // Mapea la lista de JSON a instancias de la clase Pelicula.
       InfoPeliculasRelacionadas infoPeliculasRelacionadas = InfoPeliculasRelacionadas.fromJson(jsonDecode(response.body));
       return infoPeliculasRelacionadas.results?? [];

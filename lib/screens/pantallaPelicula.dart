@@ -261,7 +261,7 @@ class PantallaPelicula extends StatelessWidget {
                                 itemCount: peliculasRelacionadas.length,
                                 itemBuilder: (context, index) {
                                   return Container(
-                                    padding: EdgeInsets.only(right: 10),
+                                    padding: const EdgeInsets.only(right: 10),
                                     child: PortadaPeliculaWidget(
                                       id: peliculasRelacionadas[index].id?? -0, 
                                       imageUrl: peliculasRelacionadas[index].posterPath != null

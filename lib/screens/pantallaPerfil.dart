@@ -9,7 +9,6 @@ class PantallaPerfil extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -30,11 +29,11 @@ class PantallaPerfil extends StatelessWidget {
         )
         ),
         body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
         child: Column(
            children: [
             Container(
-              padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
               alignment: Alignment.center,
               child: CircleAvatar(
                 radius: 80,
